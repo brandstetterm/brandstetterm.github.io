@@ -1,0 +1,151 @@
+:root {
+  --bg-start: #fff5d6;
+  --bg-end: #ffd8c7;
+  --card: rgba(255, 255, 255, 0.84);
+  --text: #2f2a2a;
+  --muted: #6f6363;
+  --yes: #198754;
+  --yes-hover: #157347;
+  --no: #d6336c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 15% 20%, #ffffff 0%, transparent 35%),
+    radial-gradient(circle at 85% 10%, #ffe4ee 0%, transparent 28%),
+    linear-gradient(130deg, var(--bg-start), var(--bg-end));
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.card {
+  width: min(680px, 100%);
+  background: var(--card);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: 0 1rem 2.5rem rgba(78, 33, 33, 0.16);
+  animation: card-in 0.6s ease-out both;
+}
+
+.card-success {
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  line-height: 1.1;
+}
+
+.subtext {
+  margin-top: 0.85rem;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+}
+
+.button-zone {
+  position: relative;
+  min-height: 180px;
+  border-radius: 1rem;
+  border: 1px dashed rgba(111, 99, 99, 0.35);
+  background: rgba(255, 255, 255, 0.54);
+  overflow: hidden;
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 0;
+  border-radius: 999px;
+  min-width: 7rem;
+  padding: 0.8rem 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-yes {
+  background: var(--yes);
+}
+
+.btn-yes:hover {
+  background: var(--yes-hover);
+}
+
+.btn-no {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: var(--no);
+}
+
+@media (max-width: 560px) {
+  .button-zone {
+    min-height: 220px;
+  }
+
+  .btn {
+    min-width: 6.25rem;
+    font-size: 1rem;
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
