@@ -1,0 +1,416 @@
+/* ========================================
+   CSS Variables & Reset
+   ======================================== */
+:root {
+  /* Colors */
+  --envelope-color: #f5e6d3;
+  --envelope-dark: #e6d4be;
+  --envelope-shadow: #d4c4b0;
+  --envelope-inner: #efe4d6;
+  --heart-color: #e63946;
+  --heart-hover: #ff4757;
+  --letter-color: #ffffff;
+  --letter-lines: #f0e6e6;
+  --text-color: #5c4a4a;
+  
+  /* Gradients */
+  --background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  
+  /* Animation timing */
+  --flap-duration: 1.5s;
+  --heart-duration: 0.3s;
+  --letter-duration: 1s;
+  --letter-delay: 1.5s; /* Wait for flap to fully open first */
+  
+  /* Envelope dimensions */
+  --envelope-width: 320px;
+  --envelope-height: 220px;
+  --flap-height: 130px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   Page Layout
+   ======================================== */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* ========================================
+   Envelope Wrapper (Perspective Container)
+   ======================================== */
+.envelope-wrapper {
+  perspective: 1500px;
+}
+
+/* ========================================
+   Envelope Base
+   ======================================== */
+.envelope {
+  position: relative;
+  width: var(--envelope-width);
+  height: var(--envelope-height);
+}
+
+/* ========================================
+   Envelope Back (Inside of envelope)
+   Lower z-index - letter will appear in front of this
+   ======================================== */
+.envelope-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--envelope-inner);
+  border-radius: 0 0 8px 8px; /* Only round bottom corners */
+  z-index: 1;
+  box-shadow: 
+    inset 0 0 30px rgba(0, 0, 0, 0.05),
+    0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   Letter
+   z-index 2: Above envelope-back, below envelope-pocket
+   ======================================== */
+.letter {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 160px;
+  background: var(--letter-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  overflow: hidden;
+  
+  /* Animation */
+  transform: translateY(0);
+  transition: transform var(--letter-duration) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: var(--letter-delay);
+}
+
+/* Letter paper lines effect */
+.letter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    var(--letter-lines) 27px,
+    var(--letter-lines) 28px
+  );
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0; /* Behind the text content */
+}
+
+.letter-content {
+  position: relative; /* Needed for z-index to work */
+  z-index: 1; /* Above the lines */
+  padding: 25px 20px;
+  color: var(--text-color);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transition-delay: calc(var(--letter-delay) + var(--letter-duration));
+}
+
+.envelope.open .letter-content {
+  opacity: 1;
+}
+
+.letter-greeting {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.letter-body {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.letter-signature {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: right;
+}
+
+/* Letter rises when envelope opens */
+.envelope.open .letter {
+  transform: translateY(-120px);
+}
+
+/* ========================================
+   Envelope Pocket (Front part)
+   Higher z-index - covers bottom of letter
+   ======================================== */
+.envelope-pocket {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 65%;
+  background: var(--envelope-color);
+  border-radius: 0 0 8px 8px;
+  z-index: 3; /* Above letter */
+}
+
+/* V-shape fold effect on pocket */
+.envelope-pocket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(135deg, var(--envelope-shadow) 0%, transparent 35%),
+    linear-gradient(-135deg, var(--envelope-shadow) 0%, transparent 35%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Subtle bottom shadow */
+.envelope-pocket::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.04) 100%);
+  border-radius: 0 0 8px 8px;
+  pointer-events: none;
+}
+
+/* ========================================
+   Envelope Flap (Top triangle - Animates)
+   ======================================== */
+.envelope-flap-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--flap-height);
+  z-index: 4; /* Above pocket when closed */
+  
+  /* 3D Transform Setup */
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform var(--flap-duration) ease-in-out;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Triangle using clip-path */
+  background: linear-gradient(180deg, var(--envelope-dark) 0%, var(--envelope-color) 100%);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  
+  /* Shadow */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* When envelope opens - flap rotates backward */
+.envelope.open .envelope-flap-wrapper {
+  transform: rotateX(180deg);
+}
+
+/* At 50% of animation, change flap color to show inside */
+.envelope.flap-inside .envelope-flap {
+  background: linear-gradient(180deg, var(--envelope-inner) 0%, #f9f3ed 100%);
+}
+
+/* After flap animation completes, drop z-index so letter appears in front */
+.envelope.flap-behind .envelope-flap-wrapper {
+  z-index: 1; /* Below letter (z-index 2) */
+}
+
+/* ========================================
+   Heart Seal
+   ======================================== */
+.heart-seal {
+  position: absolute;
+  top: calc(var(--flap-height) - 25px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 45px;
+  cursor: pointer;
+  z-index: 5; /* Above everything */
+  
+  /* Animation */
+  transition: 
+    transform var(--heart-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity var(--heart-duration) ease;
+  
+  /* Make it feel clickable */
+  filter: drop-shadow(0 3px 6px rgba(230, 57, 70, 0.4));
+}
+
+/* Heart shape using two pseudo-elements */
+.heart-seal::before,
+.heart-seal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 26px;
+  height: 40px;
+  background: var(--heart-color);
+  border-radius: 26px 26px 0 0;
+  transition: background 0.2s ease;
+}
+
+.heart-seal::before {
+  left: 26px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart-seal::after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+/* Hover effect */
+.heart-seal:hover {
+  transform: translateX(-50%) scale(1.15);
+  filter: drop-shadow(0 4px 10px rgba(230, 57, 70, 0.5));
+}
+
+.heart-seal:hover::before,
+.heart-seal:hover::after {
+  background: var(--heart-hover);
+}
+
+/* Active/click effect */
+.heart-seal:active {
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Heart disappears when envelope opens */
+.envelope.open .heart-seal {
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========================================
+   Hint Text
+   ======================================== */
+.hint {
+  color: rgba(92, 74, 74, 0.6);
+  font-size: 0.9rem;
+  font-style: italic;
+  letter-spacing: 1px;
+  transition: opacity 0.5s ease;
+}
+
+.container:has(.envelope.open) .hint {
+  opacity: 0;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 400px) {
+  :root {
+    --envelope-width: 280px;
+    --envelope-height: 190px;
+    --flap-height: 110px;
+  }
+  
+  .heart-seal {
+    width: 40px;
+    height: 36px;
+  }
+  
+  .heart-seal::before,
+  .heart-seal::after {
+    width: 21px;
+    height: 32px;
+    border-radius: 21px 21px 0 0;
+  }
+  
+  .heart-seal::before {
+    left: 21px;
+  }
+  
+  .letter-content {
+    padding: 18px 15px;
+  }
+  
+  .letter-greeting {
+    font-size: 1rem;
+  }
+  
+  .letter-body {
+    font-size: 0.85rem;
+  }
+}
+
+/* ========================================
+   Subtle Animation Enhancements
+   ======================================== */
+
+/* Realistic "lub-dub" heartbeat pulse */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+  15% {
+    transform: translateX(-50%) scale(1.15);
+  }
+  30% {
+    transform: translateX(-50%) scale(1);
+  }
+  45% {
+    transform: translateX(-50%) scale(1.1);
+  }
+  60% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.heart-seal {
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+.heart-seal:hover {
+  animation: none;
+}
+
+.envelope.open .heart-seal {
+  animation: none;
+}
