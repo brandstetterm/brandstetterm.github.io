@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lufthansa Boarding Pass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #05164d;
+            color: #333333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        /* Gift Box Styles */
+        .gift-section {
+            text-align: center;
+            transition: opacity 400ms ease-out, transform 400ms ease-out;
+        }
+
+        .gift-section.fade-out {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .gift-section.hidden {
+            display: none;
+        }
+
+        .gift-box {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            position: relative;
+            cursor: pointer;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .gift-wrap {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #ffe8f0 50%, #ffffff 100%);
+            border-radius: 8px;
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ribbon-horizontal {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 28px;
+            transform: translateY(-50%);
+            background: linear-gradient(180deg,
+                #ff8db4 0%,
+                #ff6b9d 40%,
+                #ff4d89 50%,
+                #ff6b9d 60%,
+                #ff8db4 100%);
+            box-shadow:
+                0 2px 8px rgba(255, 107, 157, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .ribbon-vertical {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 28px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg,
+                #ff8db4 0%,
+                #ff6b9d 40%,
+                #ff4d89 50%,
+                #ff6b9d 60%,
+                #ff8db4 100%);
+            box-shadow:
+                0 2px 8px rgba(255, 107, 157, 0.4),
+                inset 1px 0 0 rgba(255, 255, 255, 0.3),
+                inset -1px 0 0 rgba(0, 0, 0, 0.1);
+            z-index: 3;
+        }
+
+        .bow {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+        }
+
+        .bow-loop-left,
+        .bow-loop-right {
+            position: absolute;
+            width: 38px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff8db4 0%, #ff6b9d 50%, #ff4d89 100%);
+            border-radius: 50% 50% 50% 0;
+            box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .bow-loop-left {
+            top: 0;
+            left: -32px;
+            transform: rotate(-45deg);
+        }
+
+        .bow-loop-right {
+            top: 0;
+            right: -32px;
+            transform: rotate(135deg);
+        }
+
+        .bow-center {
+            position: relative;
+            width: 22px;
+            height: 26px;
+            background: linear-gradient(180deg, #ff6b9d 0%, #ff4d89 100%);
+            border-radius: 4px;
+            box-shadow:
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .bow-center::before,
+        .bow-center::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            top: 100%;
+        }
+
+        .bow-center::before {
+            left: 50%;
+            transform: translateX(-50%) translateX(-8px);
+            border-width: 20px 8px 0 8px;
+            border-color: #ff6b9d transparent transparent transparent;
+            filter: brightness(0.9);
+        }
+
+        .bow-center::after {
+            left: 50%;
+            transform: translateX(-50%) translateX(8px);
+            border-width: 20px 8px 0 8px;
+            border-color: #ff4d89 transparent transparent transparent;
+        }
+
+        .tap-hint {
+            font-size: 14px;
+            color: #ffb3d1;
+            margin-top: 10px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Boarding Pass Styles */
+        .boarding-pass-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .boarding-pass-section.slide-up {
+            animation: slideUp 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .boarding-pass {
+            background: #4c6e49;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        /* Card Header - Green Bar */
+        .card-header {
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Card Body - White Section */
+        .card-body {
+            padding: 20px;
+            background: white;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        /* Flight Info Row - Logo + Flight Number + Operator */
+        .flight-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .flight-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lufthansa-logo {
+            width: 24px;
+            height: 24px;
+        }
+
+        .flight-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #05164d;
+        }
+
+        .flight-operator {
+            font-size: 11px;
+            color: #666666;
+        }
+
+        /* Route Section - Airport Codes */
+        .route-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .airport-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .airport-code {
+            font-size: 48px;
+            font-weight: 700;
+            color: #05164d;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+
+        .city-name {
+            font-size: 13px;
+            color: #666666;
+            margin-top: 4px;
+        }
+
+        .plane-icon {
+            width: 28px;
+            height: 28px;
+            margin: 0 12px;
+            transform: rotate(90deg);
+        }
+
+        /* Time Row */
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .time {
+            font-size: 20px;
+            font-weight: 700;
+            color: #05164d;
+        }
+
+        .duration {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        /* Terminal/Gate Row */
+        .terminal-gate-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .pill {
+            background: #f4f5f9;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 13px;
+            color: #05164d;
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Notch Separator */
+        .notch-separator {
+            position: relative;
+            height: 24px;
+            margin: 0 -20px;
+        }
+
+        .notch-separator::before,
+        .notch-separator::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #05164d;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .notch-separator::before {
+            left: -12px;
+        }
+
+        .notch-separator::after {
+            right: -12px;
+        }
+
+        .notch-separator .dashed-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            border-top: 1px dashed #d0d0d0;
+        }
+
+        /* Price Section - Grey Box */
+        .price-section {
+            background: #f4f5f9;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 16px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .price-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #666666;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .price-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #05164d;
+        }
+
+        /* Paid Stamp */
+        .paid-stamp {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translate(0, -50%) rotate(-15deg);
+            color: #d60000;
+            font-size: 32px;
+            font-weight: 900;
+            font-family: 'Courier New', monospace;
+            border: 4px solid #d60000;
+            border-style: double;
+            padding: 8px 16px;
+            opacity: 0;
+            transform: translate(0, -50%) rotate(-15deg) scale(3);
+            pointer-events: none;
+        }
+
+        .paid-stamp.stamped {
+            animation: stampImpact 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes stampImpact {
+            to {
+                opacity: 1;
+                transform: translate(0, -50%) rotate(-15deg) scale(1);
+            }
+        }
+
+        /* Card Footer - Seat Info */
+        .card-footer {
+            padding: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .seat-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .seat-text {
+            font-size: 13px;
+            color: #666666;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 600px) {
+            .gift-box {
+                width: 220px;
+                height: 220px;
+            }
+
+            .ribbon-horizontal {
+                height: 32px;
+            }
+
+            .ribbon-vertical {
+                width: 32px;
+            }
+
+            .bow {
+                top: 36px;
+            }
+
+            .bow-loop-left,
+            .bow-loop-right {
+                width: 44px;
+                height: 52px;
+            }
+
+            .bow-loop-left {
+                left: -38px;
+            }
+
+            .bow-loop-right {
+                right: -38px;
+            }
+
+            .bow-center {
+                width: 26px;
+                height: 30px;
+            }
+
+            .bow-center::before,
+            .bow-center::after {
+                border-width: 24px 9px 0 9px;
+            }
+
+            .bow-center::before {
+                transform: translateX(-50%) translateX(-9px);
+            }
+
+            .bow-center::after {
+                transform: translateX(-50%) translateX(9px);
+            }
+
+            .boarding-pass {
+                max-width: 420px;
+            }
+
+            .airport-code {
+                font-size: 52px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Gift Box Section -->
+        <div class="gift-section" id="giftSection">
+            <div class="gift-box" id="giftBox">
+                <div class="gift-wrap">
+                    <div class="ribbon-horizontal"></div>
+                    <div class="ribbon-vertical"></div>
+                    <div class="bow">
+                        <div class="bow-loop-left"></div>
+                        <div class="bow-loop-right"></div>
+                        <div class="bow-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boarding Pass Section -->
+        <div class="boarding-pass-section" id="boardingPassSection">
+            <div class="boarding-pass">
+                <!-- Card Header - Green Bar -->
+                <div class="card-header">
+                    <span>27. Februar 2026</span>
+                    <span>Economy</span>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <!-- Flight Info Row -->
+                    <div class="flight-info-row">
+                        <div class="flight-left">
+                            <svg class="lufthansa-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38">
+                                <path fill="#000" d="M38 19C38 8.474 29.526 0 19 0 8.512 0 0 8.474 0 19c0 10.488 8.512 19 19 19 10.526 0 19-8.512 19-19zm-1.368 0c0 9.69-7.904 17.632-17.632 17.632-9.69 0-17.632-7.941-17.632-17.632C1.368 9.272 9.31 1.368 19 1.368c9.728 0 17.632 7.904 17.632 17.632zm-10.906-1.14c-.418 0-.95 0-1.634.038l.494-.836h.798c2.85 0 4.978.152 6.916.494l.874-.836c-2.166-.38-4.788-.608-7.448-.608h-.646l.418-.798h.722c2.774 0 5.282.228 7.714.684l.912-.874c-2.736-.532-5.662-.797-8.816-.797a45.9 45.9 0 0 0-4.028.19c-1.52 3.267-3.952 5.168-6.688 5.13-1.064-.039-2.395-.494-4.104-1.407l-1.596-.912.494-.456 3.686 1.596.798-.608-7.448-3.382-1.14.874-2.66-1.102.038 1.102c3.572 1.634 5.054 2.546 8.816 5.244 4.902 3.496 9.272 5.396 15.352 6.612l1.596-1.52h-.38c-4.028 0-7.638-1.33-9.728-3.572 1.748-1.064 3.913-1.557 6.916-1.557.798 0 1.938.075 3.002.189l.912-.874a36.194 36.194 0 0 0-4.294-.266 35.23 35.23 0 0 0-2.888.114l.684-.836a43.437 43.437 0 0 1 2.432-.076c2.014 0 3.344.076 4.864.304l.874-.836c-1.596-.265-3.8-.418-5.814-.418z"/>
+                            </svg>
+                            <span class="flight-number">LH1678</span>
+                        </div>
+                        <div class="flight-operator">Durchgeführt von Lufthansa</div>
+                    </div>
+
+                    <!-- Route Section -->
+                    <div class="route-section">
+                        <div class="airport-group">
+                            <div class="airport-code">MUC</div>
+                            <div class="city-name">München</div>
+                        </div>
+                        <svg class="plane-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#05164d">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                        </svg>
+                        <div class="airport-group">
+                            <div class="airport-code">BUD</div>
+                            <div class="city-name">Budapest</div>
+                        </div>
+                    </div>
+
+                    <!-- Time Row -->
+                    <div class="time-row">
+                        <span class="time">15:00</span>
+                        <span class="duration">1h 15min</span>
+                        <span class="time">16:15</span>
+                    </div>
+
+                    <!-- Terminal/Gate Row -->
+                    <div class="terminal-gate-row">
+                        <div class="pill">Terminal 2</div>
+                        <div class="pill">Gate -</div>
+                    </div>
+
+                    <!-- Notch Separator -->
+                    <div class="notch-separator">
+                        <div class="dashed-line"></div>
+                    </div>
+
+                    <!-- Price Section -->
+                    <div class="price-section">
+                        <div class="price-label">Gesamtpreis für 2 Personen</div>
+                        <div class="price-value">370,32 €</div>
+                        <div class="paid-stamp" id="paidStamp">BEZAHLT</div>
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="card-footer">
+                        <svg class="seat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#666666">
+                            <path d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h3v3h-3v-3zM2 10h3v3H2v-3zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z"/>
+                        </svg>
+                        <span class="seat-text">Noch keine Sitze zugewiesen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation controller
+        let animationTriggered = false;
+
+        const giftBox = document.getElementById('giftBox');
+        const giftSection = document.getElementById('giftSection');
+        const boardingPassSection = document.getElementById('boardingPassSection');
+        const paidStamp = document.getElementById('paidStamp');
+
+        giftBox.addEventListener('click', function() {
+            // Prevent multiple clicks
+            if (animationTriggered) return;
+            animationTriggered = true;
+
+            // Fade out gift box
+            giftSection.classList.add('fade-out');
+
+            // After fade out completes (400ms), show boarding pass
+            setTimeout(() => {
+                giftSection.classList.add('hidden');
+                boardingPassSection.style.display = 'block';
+
+                // Trigger slide up animation
+                setTimeout(() => {
+                    boardingPassSection.classList.add('slide-up');
+                }, 100);
+
+                // Trigger stamp animation after boarding pass settles
+                setTimeout(() => {
+                    paidStamp.classList.add('stamped');
+                }, 1500);
+            }, 600);
+        });
+    </script>
+</body>
+</html>
