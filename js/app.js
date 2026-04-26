@@ -158,7 +158,7 @@ function renderExperience() {
     <section class="section" id="work">
       <header class="section-head">
         <div class="num-col"><span class="n">02</span> · work experience</div>
-        <h2>Where I work</h2>
+        <h2>Day job — inovex, Munich, since 2018.</h2>
         <div class="aside">click a row to expand ↓</div>
       </header>
       <div class="experience-list">
@@ -241,7 +241,7 @@ function renderProjects() {
     <section class="section" id="projects">
       <header class="section-head">
         <div class="num-col"><span class="n">03</span> · projects</div>
-        <h2>Selected work — client, open-source, and student projects.</h2>
+        <h2>Selected work — 2020 onward.</h2>
         <div class="aside projects-count">${data.projects.length} of ${data.projects.length}</div>
       </header>
       <div class="projects-filter">
@@ -269,7 +269,7 @@ function renderEducation() {
     <section class="section" id="education">
       <header class="section-head">
         <div class="num-col"><span class="n">04</span> · education</div>
-        <h2>Where I learned to argue about types.</h2>
+        <h2>Two degrees in informatics — Munich and Landshut.</h2>
         <div class="aside">Munich · Landshut</div>
       </header>
       <div class="education-list">
