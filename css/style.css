@@ -702,6 +702,7 @@ h1.hero-name .cursor {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--col-gap);
+  align-items: start;
 }
 .project-card {
   grid-column: span 4;
@@ -743,7 +744,7 @@ h1.hero-name .cursor {
   box-shadow: 0 24px 48px -24px color-mix(in oklab, var(--accent) 40%, transparent);
 }
 .project-thumb {
-  flex: 1;
+  aspect-ratio: 4 / 3;
   position: relative;
   background:
     linear-gradient(to right, var(--border) 1px, transparent 1px) 0 0 / 32px 100%,
@@ -754,7 +755,6 @@ h1.hero-name .cursor {
   align-items: center;
   justify-content: center;
   padding: 28px;
-  min-height: 140px;
   overflow: hidden;
 }
 .project-thumb::before {
@@ -777,7 +777,7 @@ h1.hero-name .cursor {
   border-bottom: 1px solid var(--accent);
   border-right: 1px solid var(--accent);
 }
-.project-card.featured .project-thumb { min-height: 180px; }
+.project-card.featured .project-thumb { aspect-ratio: 16 / 9; }
 .project-thumb-caption {
   font-family: var(--font-mono);
   font-size: 12px;
