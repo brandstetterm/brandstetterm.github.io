@@ -104,7 +104,7 @@
       "name": "Gear-Shift Configurator",
       "client": "Bicycle manufacturer",
       "year": "2023",
-      "role": "Frontend Lead",
+      "role": "Frontend",
       "summary": "Web Bluetooth companion that updates firmware and tunes electronic gear shifts, right in the browser.",
       "tags": ["Vue", "Web Bluetooth", "TypeScript"],
       "caption": "// WEB BLUETOOTH"
