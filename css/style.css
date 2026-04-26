@@ -702,7 +702,6 @@ h1.hero-name .cursor {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--col-gap);
-  align-items: start;
 }
 .project-card {
   grid-column: span 4;
