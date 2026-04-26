@@ -576,9 +576,6 @@ h1.hero-name .cursor {
 }
 .detail-body {
   padding: 24px 0 8px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
-  gap: 40px;
   border-top: 1px dashed var(--border);
   margin-top: 4px;
 }
@@ -1234,7 +1231,6 @@ h1.hero-name .cursor {
   }
   .hero-right { border-left: 0; padding-left: 0; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
   .section-head .aside { text-align: left; }
-  .detail-body { grid-template-columns: 1fr; }
   .writing-item { grid-template-columns: 90px 1fr; }
   .writing-item .read { display: none; }
   .topnav .anchors { display: none; }

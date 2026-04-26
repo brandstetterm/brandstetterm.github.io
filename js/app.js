@@ -86,39 +86,6 @@ function renderExperienceRow(row, idx) {
 
   const bullets = row.bullets.map(b => `<li>${esc(b)}</li>`).join('');
 
-  let assignmentsHtml = '';
-  if (row.assignments) {
-    const items = row.assignments.map(a =>
-      `<li>
-        <span class="when">${esc(a.when)}</span>
-        <span class="what">${esc(a.what)}</span>
-        <span class="note">${esc(a.note)}</span>
-      </li>`
-    ).join('');
-    assignmentsHtml = `
-      <div class="assignments">
-        <div class="assignments-label">// assignments / stations</div>
-        <ol>${items}</ol>
-      </div>`;
-  }
-
-  let stackHtml;
-  if (row.stackGroups) {
-    const groups = row.stackGroups.map(g => `
-      <div class="stack-group">
-        <div class="stack-group-label">${esc(g.label)}</div>
-        <div class="stack-list">
-          ${g.items.map(s => `<span class="stack-chip">${esc(s)}</span>`).join('')}
-        </div>
-      </div>`
-    ).join('');
-    stackHtml = `<div class="stack-groups">${groups}</div>`;
-  } else {
-    stackHtml = `<div class="stack-list">
-      ${row.stack.map(s => `<span class="stack-chip">${esc(s)}</span>`).join('')}
-    </div>`;
-  }
-
   return `
     <article class="experience-row" data-open="${idx === 0}" data-idx="${idx}"
              role="button" tabindex="0">
@@ -139,11 +106,7 @@ function renderExperienceRow(row, idx) {
       <div class="detail">
         <div class="detail-inner">
           <div class="detail-body">
-            <div>
-              <ul>${bullets}</ul>
-              ${assignmentsHtml}
-            </div>
-            ${stackHtml}
+            <ul>${bullets}</ul>
           </div>
         </div>
       </div>
