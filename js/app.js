@@ -43,6 +43,7 @@ function renderNav() {
       <div class="anchors">
         <a href="#work">work</a>
         <a href="#projects">projects</a>
+        <a href="#education">education</a>
         <a href="#contact">contact</a>
       </div>
       <div class="right">
