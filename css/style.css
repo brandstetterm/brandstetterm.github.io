@@ -711,34 +711,6 @@ h1.hero-name .cursor {
 }
 
 /* ---------- Projects ---------- */
-.projects-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 28px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-}
-.filter-chip {
-  padding: 5px 12px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--muted);
-  transition: all 0.2s var(--ease);
-  background: transparent;
-}
-.filter-chip:hover { color: var(--fg); border-color: var(--rule-strong); }
-.filter-chip[data-active="true"] {
-  background: var(--fg);
-  color: var(--bg);
-  border-color: var(--fg);
-}
-.filter-chip .count {
-  color: var(--dim);
-  margin-left: 4px;
-}
-.filter-chip[data-active="true"] .count { color: color-mix(in oklab, var(--bg) 60%, transparent); }
-
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -871,22 +843,6 @@ h1.hero-name .cursor {
   line-height: 1.5;
   margin: 0 0 14px;
 }
-.project-meta .tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-.project-meta .tags .tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--muted);
-  padding: 2px 8px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
 /* Project card expand */
 .project-card[data-expandable] { cursor: pointer; }
 

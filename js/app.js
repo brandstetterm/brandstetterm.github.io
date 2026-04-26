@@ -175,9 +175,6 @@ function renderProjectCards(projects) {
           </div>
           <div class="client">↳ ${esc(p.client)} · ${esc(p.role)}</div>
           <p class="summary">${esc(p.summary)}</p>
-          <div class="tags">
-            ${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}
-          </div>
           ${footerHtml}
         </div>
         ${detailHtml}
@@ -185,31 +182,14 @@ function renderProjectCards(projects) {
   }).join('');
 }
 
-function getTagCounts() {
-  const t = new Map();
-  data.projects.forEach(p => p.tags.forEach(x => t.set(x, (t.get(x) || 0) + 1)));
-  return Array.from(t.entries()).sort((a, b) => b[1] - a[1]);
-}
-
 function renderProjects() {
-  const allTags = getTagCounts();
-  const chips = [
-    `<button class="filter-chip" data-filter="all" data-active="true">all <span class="count">${data.projects.length}</span></button>`,
-    ...allTags.map(([t, n]) =>
-      `<button class="filter-chip" data-filter="${esc(t)}" data-active="false">${esc(t)} <span class="count">${n}</span></button>`
-    )
-  ].join('');
-
   return `
     <section class="section" id="projects">
       <header class="section-head">
         <div class="num-col"><span class="n">03</span> · projects</div>
         <h2>Selected work — 2020 onward.</h2>
-        <div class="aside projects-count">${data.projects.length} of ${data.projects.length}</div>
+        <div class="aside">${data.projects.length} projects</div>
       </header>
-      <div class="projects-filter">
-        ${chips}
-      </div>
       <div class="projects-grid">
         ${renderProjectCards(data.projects)}
       </div>
@@ -320,25 +300,3 @@ document.querySelector('.projects-grid').addEventListener('click', (e) => {
   card.querySelector('.expand-chip').textContent = isOpen ? '+ expand' : '– collapse';
 });
 
-// Project filter
-let currentFilter = 'all';
-document.querySelector('.projects-filter').addEventListener('click', (e) => {
-  const chip = e.target.closest('.filter-chip');
-  if (!chip) return;
-  const filter = chip.dataset.filter;
-  if (filter === currentFilter) return;
-
-  currentFilter = filter;
-  // Update active states on chips
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.setAttribute('data-active', c.dataset.filter === filter);
-  });
-
-  // Filter and re-render cards
-  const filtered = filter === 'all'
-    ? data.projects
-    : data.projects.filter(p => p.tags.includes(filter));
-
-  document.querySelector('.projects-grid').innerHTML = renderProjectCards(filtered);
-  document.querySelector('.projects-count').textContent = `${filtered.length} of ${data.projects.length}`;
-});
