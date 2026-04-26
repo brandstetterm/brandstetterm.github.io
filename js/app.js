@@ -43,7 +43,6 @@ function renderNav() {
       <div class="anchors">
         <a href="#work">work</a>
         <a href="#projects">projects</a>
-        <a href="#skills">stack</a>
         <a href="#contact">contact</a>
       </div>
       <div class="right">
@@ -254,35 +253,6 @@ function renderProjects() {
     </section>`;
 }
 
-// ---------- Render: Skills ----------
-function renderSkillsCol(key, label, letter, items) {
-  const lis = items.map(s =>
-    `<li style="--conf:${s.confidence}%">${esc(s.name)}</li>`
-  ).join('');
-  return `
-    <div class="skills-col ${key}">
-      <h4><span class="n">${esc(letter)}</span> · ${esc(label)}</h4>
-      <ul>${lis}</ul>
-    </div>`;
-}
-
-function renderSkills() {
-  const total = Object.values(data.skills).flat().length;
-  return `
-    <section class="section" id="skills">
-      <header class="section-head">
-        <div class="num-col"><span class="n">04</span> · stack</div>
-        <h2>Tools I reach for — sorted by how much I've actually used them.</h2>
-        <div class="aside">${total} items</div>
-      </header>
-      <div class="skills-grid">
-        ${renderSkillsCol('lead', 'lead', 'A', data.skills.lead)}
-        ${renderSkillsCol('solid', 'solid', 'B', data.skills.solid)}
-        ${renderSkillsCol('curious', 'curious', 'C', data.skills.curious)}
-      </div>
-    </section>`;
-}
-
 // ---------- Render: Education ----------
 function renderEducation() {
   const rows = data.education.map(e => `
@@ -298,7 +268,7 @@ function renderEducation() {
   return `
     <section class="section" id="education">
       <header class="section-head">
-        <div class="num-col"><span class="n">05</span> · education</div>
+        <div class="num-col"><span class="n">04</span> · education</div>
         <h2>Where I learned to argue about types.</h2>
         <div class="aside">Munich · Landshut</div>
       </header>
@@ -341,7 +311,6 @@ root.innerHTML =
     renderHero() +
     renderExperience() +
     renderProjects() +
-    renderSkills() +
     renderEducation() +
   '</main>' +
   renderFooter();
