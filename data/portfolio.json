@@ -1,0 +1,174 @@
+{
+  "person": {
+    "name": "Manuel Brandstetter",
+    "role": "Software Engineer (Lead FE on current project)",
+    "location": "Munich, DE",
+    "tz": "CET",
+    "tagline": "I ship web applications end-to-end — leaning front-end, comfortable in the back.",
+    "bio": "Software engineer at inovex. Currently on assignment at a global pharma client, where I started as an IC on the myGenAssist platform and — after the previous lead left end of 2025 — took over as frontend lead of a 3-person team.",
+    "links": {
+      "github": "https://github.com/manuelbrandstetter",
+      "linkedin": "https://www.linkedin.com/in/manuelbrandstetter/",
+      "email": "mailto:hello@manuelbrandstetter.de"
+    }
+  },
+
+  "now": [
+    { "label": "Leading", "value": "FE team of 3 on myGenAssist (Bayer, via inovex)" },
+    { "label": "Shipping", "value": "Next.js · React · Tailwind · FastAPI" },
+    { "label": "Reading", "value": "Refactoring UI · Josh Comeau's CSS course" },
+    { "label": "Tooling", "value": "Claude Code · OpenCode in the loop" }
+  ],
+
+  "experience": [
+    {
+      "org": "inovex GmbH",
+      "role": "Software Engineer",
+      "location": "Munich",
+      "start": "2024-01",
+      "end": null,
+      "summary": "Full-time at inovex after graduation — a consultancy, so I'm placed on client assignments. Currently on the myGenAssist team at a global pharma client, where I was promoted to frontend lead end of 2025.",
+      "bullets": [
+        "Leading a 3-person FE team on myGenAssist — a private, in-house generative-AI platform serving 40,000+ employees. Took over the lead role after the previous lead left the project.",
+        "Owning FE architecture, code review, and delivery for the myGenAssist chat & agents surface.",
+        "Before the promotion: IC on the same platform since Nov 2024 — shipped streaming chat, tool-use, citations.",
+        "Earlier in 2024: Vue + Web Bluetooth companion app for a bicycle manufacturer's electronic gear shift.",
+        "Continuing open-source work on Scrumlr (React + Go)."
+      ],
+      "assignments": [
+        { "when": "2025-12 → now", "what": "Lead FE — myGenAssist (Bayer)", "note": "promoted from IC after the previous lead left" },
+        { "when": "2024-11 → 2025-12", "what": "Frontend IC — myGenAssist (Bayer)", "note": "streaming chat, tool-use, citations" },
+        { "when": "2024-01 → 2024-10", "what": "Frontend — bicycle gear-shift configurator", "note": "Vue · Web Bluetooth" }
+      ],
+      "stack": ["Next.js", "React", "TypeScript", "Tailwind", "Python", "FastAPI"]
+    },
+    {
+      "org": "inovex GmbH",
+      "role": "Working Student · Intern",
+      "location": "Munich",
+      "start": "2018-09",
+      "end": "2023-12",
+      "summary": "Joined as an intern during my bachelor's; stayed on as a working student through my master's. Open-source, internal tooling, client work.",
+      "bullets": [
+        "Mission Control Paramedic — internal tool.",
+        "Scrumlr — retrospective tool, open source.",
+        "Learned how a product ships, end to end."
+      ],
+      "stack": ["React", "TypeScript", "Go", "Node"]
+    },
+    {
+      "org": "droov (TUM interdisciplinary project)",
+      "role": "Full-stack Developer",
+      "location": "Munich",
+      "start": "2022-04",
+      "end": "2022-08",
+      "summary": "Full-stack on a TUM startup building a Lieferando alternative for restaurants.",
+      "bullets": [
+        "Implemented credit-card and PayPal checkout using Stripe and PayPal APIs.",
+        "Built a Stripe Billing subscription flow for restaurant owners."
+      ],
+      "stack": ["React", "Node", "Stripe", "PayPal"]
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "myGenAssist",
+      "client": "Bayer (via inovex)",
+      "year": "2024—",
+      "role": "Lead Frontend Engineer",
+      "summary": "Private in-house generative-AI platform for 40k+ employees. Chat, agents, and team workspaces.",
+      "tags": ["TypeScript", "Next.js", "React", "AI", "Design Systems"],
+      "featured": true,
+      "caption": "// NDA — screenshots on request",
+      "stackGroups": [
+        { "label": "Frontend", "items": ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "SWR"] },
+        { "label": "Testing", "items": ["Vitest", "Cypress"] },
+        { "label": "Backend (occasional)", "items": ["Python", "FastAPI", "Pydantic", "Alembic"] },
+        { "label": "Design & Collab", "items": ["Figma", "Teams", "GitHub (Issues, Projects)"] },
+        { "label": "AI coding", "items": ["Claude Code", "OpenCode"] }
+      ]
+    },
+    {
+      "name": "Scrumlr",
+      "client": "inovex · Open Source",
+      "year": "2019—",
+      "role": "Maintainer",
+      "summary": "Open-source online whiteboard for agile retrospectives. Real-time collaboration, moderation, exports.",
+      "link": "https://scrumlr.io",
+      "tags": ["React", "TypeScript", "Go", "Open Source"],
+      "featured": true,
+      "caption": "// SCRUMLR.IO"
+    },
+    {
+      "name": "Gear-Shift Configurator",
+      "client": "Bicycle manufacturer",
+      "year": "2023",
+      "role": "Frontend Lead",
+      "summary": "Web Bluetooth companion that updates firmware and tunes electronic gear shifts, right in the browser.",
+      "tags": ["Vue", "Web Bluetooth", "TypeScript"],
+      "caption": "// WEB BLUETOOTH"
+    },
+    {
+      "name": "droov Checkout",
+      "client": "droov · TUM startup",
+      "year": "2022",
+      "role": "Full-stack",
+      "summary": "Stripe + PayPal checkout and Stripe Billing subscriptions for restaurant owners.",
+      "tags": ["React", "Node", "Stripe"],
+      "caption": "// STRIPE + PAYPAL"
+    },
+    {
+      "name": "Mission Control Paramedic",
+      "client": "inovex · Internal",
+      "year": "2020",
+      "role": "Frontend",
+      "summary": "Internal mission-control tool used by the operations team.",
+      "tags": ["React", "Internal"],
+      "caption": "// INTERNAL TOOL"
+    },
+    {
+      "name": "LA Regional Bau",
+      "client": "Freelance",
+      "year": "2021",
+      "role": "Design & Build",
+      "summary": "Designed and implemented a marketing site for a Bavarian construction company.",
+      "tags": ["Design", "HTML", "CSS"],
+      "caption": "// MARKETING SITE"
+    }
+  ],
+
+  "education": [
+    {
+      "school": "Technical University of Munich",
+      "degree": "M.Sc. Informatics",
+      "start": "2020",
+      "end": "2023"
+    },
+    {
+      "school": "University of Applied Sciences Landshut",
+      "degree": "B.Sc. Informatics",
+      "start": "2018",
+      "end": "2020"
+    }
+  ],
+
+  "skills": {
+    "lead": [
+      { "name": "TypeScript", "confidence": 92 },
+      { "name": "React", "confidence": 90 },
+      { "name": "Next.js", "confidence": 85 }
+    ],
+    "solid": [
+      { "name": "Go", "confidence": 55 }
+    ],
+    "curious": [
+    ]
+  },
+
+  "writing": [
+    { "title": "Subgrid in production: five gotchas", "date": "2026-02", "read": "6 min" },
+    { "title": "Leading a team of three without killing the IC in you", "date": "2025-11", "read": "8 min" },
+    { "title": "What I learned shipping a chatbot to 40k users", "date": "2025-07", "read": "11 min" }
+  ]
+}
