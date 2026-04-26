@@ -32,8 +32,7 @@
         "Leading a 3-person FE team on a private, in-house generative-AI platform serving 40,000+ employees. Took over the lead role after the previous lead left the project.",
         "Owning FE architecture, code review, and delivery for the platform's chat & agents surface.",
         "Before the promotion: IC on the same platform since Nov 2024 — shipped streaming chat, tool-use, citations.",
-        "Earlier in 2024: Vue + Web Bluetooth companion app for a bicycle manufacturer's electronic gear shift.",
-        "Continuing open-source work on Scrumlr (React + Go)."
+        "Earlier in 2024: Vue + Web Bluetooth companion app for a bicycle manufacturer's electronic gear shift."
       ],
       "assignments": [
         { "when": "2025-12 → now", "what": "Lead FE — in-house GenAI platform", "note": "promoted from IC after the previous lead left" },
@@ -92,7 +91,7 @@
     {
       "name": "Scrumlr",
       "client": "inovex · Open Source",
-      "year": "2019—",
+      "year": "2019—2024",
       "role": "Maintainer",
       "summary": "Open-source online whiteboard for agile retrospectives. Real-time collaboration, moderation, exports.",
       "link": "https://scrumlr.io",
