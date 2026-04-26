@@ -5,7 +5,7 @@
     "location": "Munich, DE",
     "tz": "CET",
     "tagline": "I ship web applications end-to-end — leaning front-end, comfortable in the back.",
-    "bio": "Software engineer at inovex. Currently on assignment at a global enterprise client, where I started as an IC on an in-house generative-AI platform and — after the previous lead left end of 2025 — took over as frontend lead of a 3-person team.",
+    "bio": "Software engineer at inovex. Currently on assignment at a global enterprise client, where I started as an IC on an in-house generative-AI platform and — after the previous lead left end of 2025 — took over as frontend lead of a 4-person team.",
     "links": {
       "github": "https://github.com/brandstetterm",
       "linkedin": "https://www.linkedin.com/in/manuel-brandstetter/",
@@ -14,7 +14,7 @@
   },
 
   "now": [
-    { "label": "Leading", "value": "FE team of 3 on an in-house GenAI platform (via inovex)" },
+    { "label": "Leading", "value": "FE team of 4 on an in-house GenAI platform (via inovex)" },
     { "label": "Shipping", "value": "Next.js · React · Tailwind · FastAPI" },
     { "label": "Reading", "value": "Refactoring UI · Josh Comeau's CSS course" },
     { "label": "Tooling", "value": "Claude Code · OpenCode in the loop" }
@@ -29,10 +29,9 @@
       "end": null,
       "summary": "Full-time at inovex after graduation — a consultancy, so I'm placed on client assignments. Currently on an in-house GenAI platform team at a global enterprise client, where I was promoted to frontend lead end of 2025.",
       "bullets": [
-        "Leading a 3-person FE team on a private, in-house generative-AI platform serving 40,000+ employees. Took over the lead role after the previous lead left the project.",
-        "Owning FE architecture, code review, and delivery for the platform's chat & agents surface.",
-        "Before the promotion: IC on the same platform since Nov 2024 — shipped streaming chat, tool-use, citations.",
-        "Earlier in 2024: Vue + Web Bluetooth companion app for a bicycle manufacturer's electronic gear shift."
+        "Leading a 4-person FE team on a private, in-house generative-AI platform with ~100k registered users. Own FE architecture, code review, and delivery for the chat & agents surface.",
+        "Earlier in 2024: chatbot for a sales team (React, Zustand, Tailwind).",
+        "Start of 2024: Vue + Web Bluetooth companion app for a bicycle manufacturer's electronic gear shift."
       ],
       "assignments": [
         { "when": "2025-12 → now", "what": "Lead FE — in-house GenAI platform", "note": "promoted from IC after the previous lead left" },
@@ -76,10 +75,10 @@
       "client": "Global enterprise client (via inovex)",
       "year": "2024—",
       "role": "Lead Frontend Engineer",
-      "summary": "Private in-house generative-AI platform for 40k+ employees. Chat, agents, and team workspaces.",
+      "summary": "Private in-house generative-AI platform with ~100k registered users. Chat, agents, and team workspaces.",
       "tags": ["TypeScript", "Next.js", "React", "AI", "Design Systems"],
       "featured": true,
-      "caption": "// NDA — screenshots on request",
+      "caption": "// CHAT + AGENTS",
       "stackGroups": [
         { "label": "Frontend", "items": ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "SWR"] },
         { "label": "Testing", "items": ["Vitest", "Cypress"] },
