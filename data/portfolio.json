@@ -49,7 +49,7 @@
       "end": "2023-12",
       "summary": "Joined as an intern during my bachelor's; stayed on as a working student through my master's. Open-source, internal tooling, client work.",
       "bullets": [
-        "Mission Control Paramedic — internal tool.",
+        "Mission Control Paramedic — pro-bono dispatch software for paramedic teams.",
         "Scrumlr — retrospective tool, open source.",
         "Learned how a product ships, end to end."
       ],
@@ -119,12 +119,13 @@
     },
     {
       "name": "Mission Control Paramedic",
-      "client": "inovex · Internal",
+      "client": "German Red Cross · inovex Coding for Charity",
       "year": "2020",
-      "role": "Frontend",
-      "summary": "Internal mission-control tool used by the operations team.",
-      "tags": ["React", "Internal"],
-      "caption": "// INTERNAL TOOL"
+      "role": "Full-stack",
+      "summary": "Real-time dispatch coordination for paramedic team leaders during emergency operations. Drag-and-drop unit assignment, multi-user incident planning, and automatic, tamper-proof PDF operation logs.",
+      "link": "https://www.mission-control-paramedic.de/",
+      "tags": ["React", "Pro Bono"],
+      "caption": "// EMERGENCY DISPATCH"
     },
     {
       "name": "LA Regional Bau",
