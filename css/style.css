@@ -163,12 +163,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
 }
 .topnav .brand::before {
   content: "";
   width: 8px;
   height: 8px;
+  margin-right: 6px;
   background: var(--accent);
   border-radius: 2px;
   transform: rotate(45deg);
